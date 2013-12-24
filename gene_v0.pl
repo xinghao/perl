@@ -13,13 +13,13 @@ $registry->load_registry_from_db(
 
 
 #my $host = "http://127.0.0.1:3000";
-my $host = "http://codondex.com";
+my $host = "http://www.codondex.com";
 
 
 $gene_adaptor = $registry->get_adaptor( 'Human', 'Core', 'Gene' );
 #my $sa = $registry->get_adaptor( 'Human', 'Core', 'Sequence' );
 #@genes = @{$gene_adaptor->fetch_all()};
-@genes = @{ $gene_adaptor->fetch_all_by_external_name('MEN1') };
+@genes = @{ $gene_adaptor->fetch_all_by_external_name('ST5') };
 $gene = @genes[0];
 
 printf ("name: %s, dbId: %s\n, stable_id: %s" , $gene->external_name(), $gene->dbID(), $gene->stable_id);
@@ -93,43 +93,10 @@ $url =~ s/;/+/g;
 
 $path = $host . "/genes";
 
-#printf ("URL: http://127.0.0.1:3000/genes/create?".$url);
+printf ("URL: http://127.0.0.1:3000/genes/create?".$url);
 
 
-#insert_gene($url, $path);
-
-
-# transcript
-my $transcripts = $gene->get_all_Transcripts();
-while ( my $transcript = shift @{$transcripts} ) {
- #   insert_transcript($transcript,$host,$gene); #transcript2string($transcript);
- my @introns = @{$transcript->get_all_Introns()};
- foreach my $intron (@introns) {
-  insert_intron($transcript,$host,$intron);
-#  print "=====================================================";
-#  print "\nid: ", $intron->id, ", dbId: ", $intron->dbID, ", display_id: ", $intron->display_id, "\n";
-#  print "start: ", $intron->start, ", end: ", $intron->end, ", length: ", $intron->length, ",   strand", $intron->strand, "\n";
-#  print "seq start: ", $intron->seq_region_start, ", seq end: ", $intron->seq_region_end, ", seq length: ", $intron->seq_region_length, ",   seq strand", $intron->seq_region_strand, "\n";
-#  print "seq: ", $intron->seq, "\n";
-  
-#  print "=====================================================";
- }
-# my @exons = @{$transcript->get_all_Exons()};
-# foreach my $exon (@exons) {
-#  print "\n=====================================================\n";
-  #print "\nid: ", $exon->id, ", dbId: ", $exon->dbID, ", display_id: ", $exon->display_id, "\n";
-#  print "start: ", $exon->start, ", end: ", $exon->end, ", length: ", $exon->length, ",   strand", $exon->strand, "\n";
-#  print "seq start: ", $exon->seq_region_start, ", seq end: ", $exon->seq_region_end, ", seq length: ", $exon->seq_region_length, ",   seq strand", $exon->seq_region_strand, "\n";
-#  print "seq: ", $exon->seq->seq, "\n";  
-#  print "\n=====================================================\n";  
-# }
-# last;
-
-#    foreach my $exon ( @{ $transcript->get_all_Exons() } ) {
-#        my $estring = transcript2string($exon);
-#        print "\t\t$estring\n";
-#    }
-}
+insert_gene($url, $path);
 
 
 
