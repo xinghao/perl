@@ -12,8 +12,8 @@ $registry->load_registry_from_db(
 #$registry->version_check();
 
 
-my $host = "http://127.0.0.1:3000";
-#my $host = "http://codondex.com";
+#my $host = "http://127.0.0.1:3000";
+my $host = "http://codondex.com";
 
 
 $gene_adaptor = $registry->get_adaptor( 'Human', 'Core', 'Gene' );
