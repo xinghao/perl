@@ -13,30 +13,20 @@ $registry->load_registry_from_db(
 
 
 my $host = "http://127.0.0.1:3000";
-#my $host = "http://codondex.com";
+#my $host = "http://www.codondex.com";
 
 
 $gene_adaptor = $registry->get_adaptor( 'Human', 'Core', 'Gene' );
+#my $sa = $registry->get_adaptor( 'Human', 'Core', 'Sequence' );
+#@genes = @{$gene_adaptor->fetch_all()};
+@genes = @{ $gene_adaptor->fetch_all_by_external_name('MEN1') };
+$gene = @genes[0];
 
-@genes = @{$gene_adaptor->fetch_all()};
+genesize($gene, $host);
+printf("\n==================================\n");
 
-my $gene_name = "";
-my $count = 0;
- foreach $gene (@genes) {
-  #@ts = @{$gene->get_all_Transcripts()};
-  #my $t_size = @ts;
-  #if($t_size > $count) {
-  #  $gene_name = $gene->external_name();
-  #  $count = $t_size;
-  #}
-  #printf ("name: %s, dbId: %s, stable_id: %s, %s\n" , $gene->external_name(), $gene->dbID(), $gene->stable_id, $t_size);
-  #printf ("%s, %s, %s, %s, %s\n" , $gene->external_name(), $gene->dbID(), $gene->stable_id, $gene->length, $t_size);
-  
-  genesize($gene, $host);
-  
- }
- 
- 
+
+
 sub genesize{
   my $gene =  $_[0];
   my $host =  $_[1];
@@ -134,5 +124,3 @@ sub genesize{
 }
 
 
- 
- 

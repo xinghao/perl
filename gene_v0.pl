@@ -12,15 +12,16 @@ $registry->load_registry_from_db(
 #$registry->version_check();
 
 
-#my $host = "http://127.0.0.1:3000";
-my $host = "http://www.codondex.com";
+my $host = "http://127.0.0.1:3000";
+#my $host = "http://www.codondex.com";
 
 
 $gene_adaptor = $registry->get_adaptor( 'Human', 'Core', 'Gene' );
 #my $sa = $registry->get_adaptor( 'Human', 'Core', 'Sequence' );
 #@genes = @{$gene_adaptor->fetch_all()};
-@genes = @{ $gene_adaptor->fetch_all_by_external_name('ST5') };
+@genes = @{ $gene_adaptor->fetch_all_by_external_name('MEN1') };
 $gene = @genes[0];
+
 
 printf ("name: %s, dbId: %s\n, stable_id: %s" , $gene->external_name(), $gene->dbID(), $gene->stable_id);
 
@@ -237,3 +238,4 @@ sub intron2string{
     return $ret_string;
 
 }
+
