@@ -17,7 +17,7 @@ my $host = "http://www.codondex.com";
 
 
 $gene_adaptor = $registry->get_adaptor( 'Human', 'Core', 'Gene' );
-@genes = @{ $gene_adaptor->fetch_all_by_external_name('ST5') };
+@genes = @{ $gene_adaptor->fetch_all_by_external_name('IRF3') };
 $gene = @genes[0];
 
 printf ("name: %s, dbId: %s\n, stable_id: %s" , $gene->external_name(), $gene->dbID(), $gene->stable_id);
