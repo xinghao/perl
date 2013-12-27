@@ -12,12 +12,12 @@ $registry->load_registry_from_db(
 
 
 
-my $host = "http://127.0.0.1:3000";
-#my $host = "http://www.codondex.com";
+#my $host = "http://127.0.0.1:3000";
+my $host = "http://www.codondex.com";
 
 
 $gene_adaptor = $registry->get_adaptor( 'Human', 'Core', 'Gene' );
-@genes = @{ $gene_adaptor->fetch_all_by_external_name('ST5') };
+@genes = @{ $gene_adaptor->fetch_all_by_external_name('IRF3') };
 $gene = @genes[0];
 
 printf ("name: %s, dbId: %s\n, stable_id: %s" , $gene->external_name(), $gene->dbID(), $gene->stable_id);
@@ -39,12 +39,21 @@ printf ("seq_region_name: %s, length: %d, start:%d, end:%d\n" , $gene->seq_regio
 
 
 # transcript
+my $icount = 0;
+@ts = @{$gene->get_all_Transcripts()};
+my $t_size = @ts;
+printf("\n Size: %s \n", $t_size);
+  
 my $transcripts = $gene->get_all_Transcripts();
+
 while ( my $transcript = shift @{$transcripts} ) {
+$icount = $icount + 1;
  insert_transcript($transcript,$host,$gene); #transcript2string($transcript);
 
 
 }
+
+printf("\n Size: %s \n", $icount);
 
 
 
